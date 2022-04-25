@@ -16,6 +16,18 @@ test('Should render the user profile', async () => {
   render(<Home user={user} />)
   screen.debug()
 
+  const name = screen.getByText('Vonta')
+  expect(name).toHaveTextContent('Vonta')
+
+  const motto = await screen.getByText('Res Non Verba')
+
+  const interests = await screen.findByText('Interests')
+
   const img = await screen.findByAltText('avatar')
+
+  const header = await screen.findByAltText('header')
+
+  user.likes.forEach((item) => screen.getByText(`${item}`))
+
   screen.debug(img)
 })
