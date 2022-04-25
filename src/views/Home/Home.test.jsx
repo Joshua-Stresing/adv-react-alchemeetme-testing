@@ -1,3 +1,5 @@
+import { render, screen } from '@testing-library/react'
+import Home from './Home'
 
 const user = {
   id: 1,
@@ -10,6 +12,23 @@ const user = {
   color: 'crimson',
 }
 
-test('Should render the user profile', () => {
+test('Should render the user profile', async () => {
+  render(<Home user={user} />)
+  screen.debug()
 
+  const name = screen.getByText('Vonta')
+  // checking
+  expect(name).toHaveTextContent('Vonta')
+
+  const motto = screen.getByText('Res Non Verba')
+  // check find vs get
+  const interests = screen.findByText('Interests')
+
+  const img = screen.findByAltText('avatar')
+
+  const header = screen.findByAltText('header')
+
+  user.likes.forEach((item) => screen.getByText(`${item}`))
+
+  screen.debug(img)
 })
